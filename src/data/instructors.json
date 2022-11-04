@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "name": "John Doe",
+        "organization_id": 1
+    },
+    {
+        "id": 2,
+        "name": "Jane Doe",
+        "organization_id": 2
+    },
+    {
+        "id": 3,
+        "name": "John Smith",
+        "organization_id": 1
+    },
+    {
+        "id": 4,
+        "name": "Jane Smith",
+        "organization_id": 2
+    }
+]
