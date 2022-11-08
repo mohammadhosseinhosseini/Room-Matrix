@@ -16,6 +16,7 @@ function App() {
     const [bookedDates, setBookedDates] = useState([])
     const [showAddBook, setShowAddBook] = useState(false)
     const [session, setSession] = useState(null)
+    const [selectedRoom, setSelectedRoom] = useState('')
 
     useEffect(() => {
         roomsData.map((room) => {
@@ -63,6 +64,12 @@ function App() {
         setShowAddBook(true)
     }
 
+    const handleAddBookWithRoom = (room_id, date) => {
+        const res = rooms.find((room) => room.id === room_id)
+        setSelectedRoom(res.id)
+        setShowAddBook(true)
+    }
+
     const handleCloseAddBook = () => {
         setShowAddBook(false)
     }
@@ -92,6 +99,7 @@ function App() {
                             instructors={selectedInstructors}
                             handleAddBook={handleAddBook}
                             showSessionDetail={handleShowSessionDetail}
+                            handleAddBookWithRoom={handleAddBookWithRoom}
                         />
                     </div>
                 </div>
@@ -105,7 +113,13 @@ function App() {
                     />
                 </div>
             </div>
-            <AddBook open={showAddBook} handleClose={handleCloseAddBook} />
+            <AddBook
+                open={showAddBook}
+                handleClose={handleCloseAddBook}
+                rooms={rooms}
+                selectedRoom={selectedRoom}
+                instructors={instructors}
+            />
             <SessionDetail
                 open={session != null}
                 session={session}

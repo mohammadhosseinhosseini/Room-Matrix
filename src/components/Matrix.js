@@ -46,6 +46,7 @@ export default function Matrix({
     handleAddBook,
     bookedDates,
     showSessionDetail,
+    handleAddBookWithRoom,
 }) {
     const [week, setWeek] = useState(dates(new Date()))
     useEffect(() => {}, [])
@@ -145,7 +146,7 @@ export default function Matrix({
                                     id={room.id}
                                     name={`${room.name} (${room.city})`}
                                     week={week}
-                                    onBookClick={onClickBookRoom}
+                                    onBookClick={handleAddBookWithRoom}
                                     isRoom
                                     isBooked={isBooked}
                                     showSessionDetail={showSessionDetail}

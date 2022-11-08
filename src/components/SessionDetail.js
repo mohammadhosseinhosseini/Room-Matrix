@@ -22,7 +22,6 @@ const style = {
 }
 
 function SessionDetail({ open, handleClose, session }) {
-    console.log(session)
     if (session == null) return <></>
     return (
         <div>

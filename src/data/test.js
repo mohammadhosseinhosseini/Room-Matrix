@@ -15,8 +15,6 @@ bookedDates.map((bookedDate) => {
         sessionDate.start_time = date
         date = new Date().addHours(10)
         sessionDate.end_time = date
-
-        // console.log(date)
     })
 })
 
