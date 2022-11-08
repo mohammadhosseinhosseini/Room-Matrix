@@ -3,6 +3,8 @@ import { Button, TableRow, TableCell, Chip } from '@mui/material'
 import PeopleAltTwoToneIcon from '@mui/icons-material/PeopleAltTwoTone'
 import { isDateEqual } from '../helpers'
 
+import '../style/dist/SessionItem.min.css'
+
 const getBorderColor = (session_type) => {
     switch (session_type) {
         case 'Classroom':
@@ -19,13 +21,26 @@ const getBorderColor = (session_type) => {
 const getBGColor = (session_type) => {
     switch (session_type) {
         case 'Classroom':
-            return '#aaa'
+            return '#ababab'
         case 'Webinar':
             return '#eee'
         case 'Microsof Teams':
             return '#28c6ed'
         default:
             return '#28c6ed'
+    }
+}
+
+const getColor = (session_type) => {
+    switch (session_type) {
+        case 'Classroom':
+            return '#fff'
+        case 'Webinar':
+            return '#000'
+        case 'Microsof Teams':
+            return '#fff'
+        default:
+            return '#fff'
     }
 }
 
@@ -38,7 +53,7 @@ function SessionItem({ session, date, showSessionDetail }) {
     } = session
     return (
         <div
-            className=''
+            className='SessionItem'
             onClick={() => {
                 const dates = session_dates.map((session_date) => {
                     if (isDateEqual(session_date.start_date, date))
@@ -50,17 +65,9 @@ function SessionItem({ session, date, showSessionDetail }) {
                 })
             }}
             style={{
-                marginTop: 5,
-                marginBottom: 5,
-                padding: 5,
-                borderRadius: 5,
                 borderColor: getBorderColor(session_type),
-                borderStyle: 'solid',
-                borderWidth: 1,
                 backgroundColor: getBGColor(session_type),
-                cursor: 'pointer',
-                boxShadow:
-                    '0 0 6px 0 rgba(0,0,0,0.3), 0 3px 0px 0px rgba(0,0,0,0.15)',
+                color: getColor(session_type),
             }}
         >
             <Chip
