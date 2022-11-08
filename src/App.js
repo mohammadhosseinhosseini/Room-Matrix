@@ -4,26 +4,39 @@ import Matrix from './components/Matrix'
 import InstructorDropDown from './components/InstructorDropDown'
 
 import roomsData from './data/rooms'
-import bookedDates from './data/bookedDates'
+import bookedDatesData from './data/bookedDates'
 import organizations from './data/organizations'
 import instructorsData from './data/instructors'
 import AddBook from './components/AddBook'
+import SessionDetail from './components/SessionDetail'
 
 function App() {
     const [rooms, setRooms] = useState([])
     const [instructors, setInstructors] = useState([])
+    const [bookedDates, setBookedDates] = useState([])
     const [showAddBook, setShowAddBook] = useState(false)
+    const [session, setSession] = useState(null)
 
     useEffect(() => {
         roomsData.map((room) => {
-            room.checked = Math.random() < 0.2
+            room.checked = room.id === 1 || room.id === 2
         })
         setRooms(roomsData)
 
         instructorsData.map((instructor) => {
-            instructor.checked = Math.random() < 0.2
+            instructor.checked = instructor.id === 1 || instructor.id === 2
         })
         setInstructors(instructorsData)
+        bookedDatesData.map((bookedDate) => {
+            bookedDate.session_dates.map((sessionDate) => {
+                let date = new Date()
+                sessionDate.start_date = new Date(sessionDate.start_date)
+                sessionDate.end_date = new Date(sessionDate.end_date)
+                sessionDate.start_time = new Date(sessionDate.start_time)
+                sessionDate.end_time = new Date(sessionDate.end_time)
+            })
+        })
+        setBookedDates(bookedDatesData)
     }, [])
 
     const handleRoomCheck = (id) => {
@@ -54,6 +67,14 @@ function App() {
         setShowAddBook(false)
     }
 
+    const handleShowSessionDetail = (session) => {
+        setSession(session)
+    }
+
+    const handleCloseSessionDetail = () => {
+        setSession(null)
+    }
+
     const selectedRooms = rooms.filter((room) => room.checked)
 
     const selectedInstructors = instructors.filter(
@@ -70,6 +91,7 @@ function App() {
                             rooms={selectedRooms}
                             instructors={selectedInstructors}
                             handleAddBook={handleAddBook}
+                            showSessionDetail={handleShowSessionDetail}
                         />
                     </div>
                 </div>
@@ -84,6 +106,11 @@ function App() {
                 </div>
             </div>
             <AddBook open={showAddBook} handleClose={handleCloseAddBook} />
+            <SessionDetail
+                open={session != null}
+                session={session}
+                handleClose={handleCloseSessionDetail}
+            />
         </div>
     )
 }

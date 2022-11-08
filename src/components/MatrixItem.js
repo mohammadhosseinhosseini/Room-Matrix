@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
-import { Button } from '@mui/material'
+import { Button, TableRow, TableCell, Chip } from '@mui/material'
+import PeopleAltTwoToneIcon from '@mui/icons-material/PeopleAltTwoTone'
+import { isDateEqual } from '../helpers'
+import SessionItem from './SessionItem'
 
-function MatrixItem({ id, name, week, onBookClick, isRoom }) {
+function MatrixItem({
+    id,
+    name,
+    week,
+    onBookClick,
+    isRoom,
+    isBooked,
+    showSessionDetail,
+}) {
     return (
         <TableRow
             sx={{
@@ -20,24 +24,44 @@ function MatrixItem({ id, name, week, onBookClick, isRoom }) {
             <TableCell component='th' scope='row'>
                 {name}
             </TableCell>
-            {week.map((date) => (
-                <TableCell align='right' key={date} className='p-1'>
-                    <Button
-                        variant='contained'
-                        className='m-0'
-                        size='small'
+            {week.map((date) => {
+                const booked_sessions = isBooked(id, date, isRoom)
+                return (
+                    <TableCell
+                        key={date}
+                        className='p-1'
                         style={{
-                            fontSize: 12,
-                        }}
-                        onClick={() => {
-                            onBookClick(id, date)
+                            height: 1,
                         }}
                     >
-                        {/* {isRoom ? 'Book Room' : 'Book Trainer'} */}
-                        Book
-                    </Button>
-                </TableCell>
-            ))}
+                        <div className='d-flex flex-column h-100'>
+                            <Button
+                                variant='contained'
+                                className='m-0 mb-auto'
+                                size='small'
+                                style={{
+                                    fontSize: 12,
+                                }}
+                                onClick={() => {
+                                    onBookClick(id, date)
+                                }}
+                            >
+                                {/* {isRoom ? 'Book Room' : 'Book Trainer'} */}
+                                Book
+                            </Button>
+                            {booked_sessions.length > 0 &&
+                                booked_sessions.map((session, index) => (
+                                    <SessionItem
+                                        date={date}
+                                        session={session}
+                                        key={index}
+                                        showSessionDetail={showSessionDetail}
+                                    />
+                                ))}
+                        </div>
+                    </TableCell>
+                )
+            })}
         </TableRow>
     )
 }

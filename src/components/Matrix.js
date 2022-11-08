@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import { IconButton } from '@mui/material'
+import { isDateEqual } from '../helpers'
 
 import MatrixItem from './MatrixItem'
 
@@ -39,7 +40,13 @@ function getWeekNumber(d) {
     return Math.ceil(((d - yearStart) / 86400000 + 1) / 7)
 }
 
-export default function Matrix({ rooms, instructors, handleAddBook }) {
+export default function Matrix({
+    rooms,
+    instructors,
+    handleAddBook,
+    bookedDates,
+    showSessionDetail,
+}) {
     const [week, setWeek] = useState(dates(new Date()))
     useEffect(() => {}, [])
 
@@ -64,6 +71,25 @@ export default function Matrix({ rooms, instructors, handleAddBook }) {
                 )
             )
         })
+    }
+
+    const isBooked = (id, date, isRoom) => {
+        let booked_sessions = []
+        for (let i = 0; i < bookedDates.length; i++) {
+            const bookedDate = bookedDates[i]
+            if (
+                (isRoom && bookedDate.room_id === id) ||
+                (!isRoom && bookedDate.instructor_id === id)
+            ) {
+                for (let j = 0; j < bookedDate.session_dates.length; j++) {
+                    const session_date = bookedDate.session_dates[j]
+                    if (isDateEqual(session_date.start_date, date)) {
+                        booked_sessions = [...booked_sessions, bookedDate]
+                    }
+                }
+            }
+        }
+        return booked_sessions
     }
 
     return (
@@ -121,6 +147,8 @@ export default function Matrix({ rooms, instructors, handleAddBook }) {
                                     week={week}
                                     onBookClick={onClickBookRoom}
                                     isRoom
+                                    isBooked={isBooked}
+                                    showSessionDetail={showSessionDetail}
                                 />
                             ))}
                         <TableRow
@@ -133,6 +161,9 @@ export default function Matrix({ rooms, instructors, handleAddBook }) {
                             <TableCell component='th' scope='row'>
                                 <b>Instructors</b>
                             </TableCell>
+                            {week.map((day) => (
+                                <TableCell key={day}></TableCell>
+                            ))}
                         </TableRow>
                         {instructors.length > 0 &&
                             instructors.map((instructor) => (
@@ -142,6 +173,8 @@ export default function Matrix({ rooms, instructors, handleAddBook }) {
                                     name={instructor.name}
                                     week={week}
                                     onBookClick={onClickBookInstructor}
+                                    isBooked={isBooked}
+                                    showSessionDetail={showSessionDetail}
                                 />
                             ))}
                     </TableBody>

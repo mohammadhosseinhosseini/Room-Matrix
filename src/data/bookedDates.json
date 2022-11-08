@@ -1,1 +1,56 @@
-[]
+[
+    {
+        "litmos_session_name": "Test Kurs Für Middleware Release Version 1 9 DCISSDE",
+        "room_id": 1,
+        "instructor_id": 1,
+        "time_zone": "Europe/Berlin",
+        "min_seats": 1,
+        "max_seats": 10,
+        "available_seats": 0,
+        "session_type": "Classroom",
+        "session_dates": [
+            {
+                "start_date": "2022-11-07T20:29:22.898Z",
+                "end_date": "2022-11-07T20:29:22.898Z",
+                "start_time": "2022-11-07T20:29:22.898Z",
+                "end_time": "2022-11-08T06:29:22.898Z"
+            }
+        ]
+    },
+    {
+        "litmos_session_name": "Test Kurs Für Middleware Release Version 1 9 DCISSDE",
+        "room_id": 2,
+        "instructor_id": 1,
+        "time_zone": "Europe/Berlin",
+        "min_seats": 1,
+        "max_seats": 12,
+        "available_seats": 4,
+        "session_type": "Webinar",
+        "session_dates": [
+            {
+                "start_date": "2022-11-07T20:29:22.898Z",
+                "end_date": "2022-11-07T20:29:22.898Z",
+                "start_time": "2022-11-07T20:29:22.898Z",
+                "end_time": "2022-11-08T06:29:22.898Z"
+            }
+        ]
+    },
+    {
+        "litmos_session_name": "Test Kurs Für Middleware Release Version 1 9 DCISSDE",
+        "room_id": 3,
+        "instructor_id": 2,
+        "time_zone": "Europe/Berlin",
+        "min_seats": 1,
+        "max_seats": 12,
+        "available_seats": 9,
+        "session_type": "Microsoft Teams",
+        "session_dates": [
+            {
+                "start_date": "2022-11-09T20:29:22.898Z",
+                "end_date": "2022-11-09T20:29:22.898Z",
+                "start_time": "2022-11-07T20:29:22.898Z",
+                "end_time": "2022-11-08T06:29:22.898Z"
+            }
+        ]
+    }
+]
